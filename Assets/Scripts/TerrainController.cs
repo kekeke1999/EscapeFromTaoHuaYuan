@@ -8,7 +8,15 @@ public class TerrainController : MonoBehaviour
     [SerializeField]
     private float speed; // Speed at which the terrain moves.
 
-    private void Update()
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float _speed) {
+        speed = _speed;
+    }
+
+    public void Update()
     {
         // Check if the terrain has moved too far in the negative Z-axis direction.
         if (transform.position.z < -1000)
@@ -18,7 +26,7 @@ public class TerrainController : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    public void LateUpdate()
     {
         // Move the terrain backward (in the negative Z-axis direction) at a constant speed.
         transform.Translate(0, 0, -speed * Time.deltaTime);

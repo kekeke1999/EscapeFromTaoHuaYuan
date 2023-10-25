@@ -11,12 +11,35 @@ public class PlayerState : MonoBehaviour
 
     private bool isTransitioning = false; // Flag to check if transitioning is in progress.
 
-    private void Start()
+    public Animator getAnimator() {
+        return animator;
+    }
+
+    public void setAnimator(Animator _animator) {
+        animator = _animator;
+    }
+
+    public float getTransitionSpeed() {
+        return transitionSpeed;
+    }
+
+    public void setTransitionSpeed(float _transitionSpeed) {
+        transitionSpeed = _transitionSpeed;
+    }
+    public bool getIsTransitioning() {
+        return isTransitioning;
+    }
+
+    public void setIsTransitioning(bool _isTransitioning) {
+        isTransitioning = _isTransitioning;
+    }
+
+    public void Start()
     {
         animator = GetComponent<Animator>(); // Get the Animator component attached to this GameObject.
     }
 
-    private void Update()
+    public void Update()
     {
         // Check for the "W" key press to trigger a jump animation.
         if (Input.GetKeyDown(KeyCode.W))
@@ -40,7 +63,7 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    private IEnumerator Jump(UnityAction callBack)
+    public IEnumerator Jump(UnityAction callBack)
     {
         animator.SetBool("IsJump", true); // Trigger the jump animation.
         yield return null;
@@ -48,15 +71,15 @@ public class PlayerState : MonoBehaviour
     }
 
     // Smooth lane transition.
-    private IEnumerator TransitionToLane(Vector3 offsetx)
+    public IEnumerator TransitionToLane(Vector3 offsetx)
     {
         isTransitioning = true; // Set the transitioning flag to true.
-        Vector3 tempTargetPostion = transform.position + offsetx; // Calculate the target position.
-        Vector3 vect = tempTargetPostion - transform.position; // Calculate the direction vector.
+        Vector3 tempTargetPosition = transform.position + offsetx; // Calculate the target position.
+        Vector3 targetPosition = tempTargetPosition - transform.position; // Calculate the direction vector.
 
-        while (Vector3.Distance(transform.position, tempTargetPostion) > 0.1f)
+        while (Vector3.Distance(transform.position, tempTargetPosition) > 0.1f)
         {
-            transform.Translate(vect.normalized * 0.2f); // Move the player gradually toward the target position.
+            transform.Translate(targetPosition.normalized * 0.2f); // Move the player gradually toward the target position.
             yield return null;
         }
 

@@ -12,13 +12,13 @@ public class PlayerLogic : MonoBehaviour
 
     UIMain uIMain; // Reference to the UIMain script.
 
-    private void Start()
+    public void Start()
     {
         uIMain = FindObjectOfType<UIMain>(); // Find and reference the UIMain script.
     }
 
     float t = 0; // Timer for magnet effect duration.
-    private void Update()
+    public void Update()
     {
         if (magnetCoroutine != null)
         {
@@ -37,7 +37,7 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
         {
@@ -57,7 +57,7 @@ public class PlayerLogic : MonoBehaviour
     }
 
     // Collect a coin then update the UI coin count.
-    private void SetCoinValue(GameObject obj)
+    public void SetCoinValue(GameObject obj)
     {
         coinCount += 1;
         Destroy(obj);
@@ -65,7 +65,7 @@ public class PlayerLogic : MonoBehaviour
     }
 
     // Handle stepping on an obstacle, collect a potion, and update the UI health.
-    private void SetHealth(GameObject obj, float value)
+    public void SetHealth(GameObject obj, float value)
     {
         health += value;
 
@@ -81,7 +81,7 @@ public class PlayerLogic : MonoBehaviour
     }
 
     // Collect a magnet effect and initiate the magnet coroutine.
-    private void DrawCoin(GameObject obj)
+    public void DrawCoin(GameObject obj)
     {
         magnetCoroutine = StartCoroutine(MagnetCoins());
 
@@ -92,7 +92,7 @@ public class PlayerLogic : MonoBehaviour
     }
 
     // Coroutine for magnet effect.
-    private IEnumerator MagnetCoins()
+    public IEnumerator MagnetCoins()
     {
         while (true)
         {
