@@ -5,10 +5,6 @@ using UnityEngine;
 public class FactoryManager : MonoBehaviour
 {
     public const int NumberOfObjectsToCreate = 150;
-    public const float ObjectSpawnMean = 5.5f;
-    public const float ObjectSpawnStandardDeviation = 2.0f;
-    public const float RunWayMean = 0.5f;
-    public const float RunWayStandardDeviation = 0.2f;
     public const float Step = 2.0f;
 
     [SerializeField]
@@ -53,62 +49,41 @@ public class FactoryManager : MonoBehaviour
         return _magnet;
     }
 
+    // Start is called before the first frame update. It initializes the game objects.
     public void Start()
     {
         for (int i = 0; i < NumberOfObjectsToCreate; i++)
         {
-            Transform objType = GetRandomObjectType(ObjectSpawnMean, ObjectSpawnStandardDeviation);
-            Transform runWay = GetRandomRunWay(RunWayMean, RunWayStandardDeviation);
-            Transform obj = Instantiate(objType, runWay);
-            obj.localPosition = new Vector3(0, transform.position.y, GenerateRandomFloatWithStep(20f, 1000f, 2f));
+            Transform objectType = GetRandomObjectType(); // Choose a random object type.
+            Transform runWay = GetRandomRunWay(); // Select a random runway for placement.
+            Transform objectInRunway = Instantiate(objectType, runWay); // Instantiate the object.
+            // Position the object at a random distance on the runway.
+            objectInRunway.localPosition = new Vector3(0, transform.position.y, GenerateRandomFloatWithStep(20f, 1000f, Step));
         }
     }
 
-
-    // Get a lane (left, center, or right). 0.5 0.2
-    public Transform GetRandomRunWay(float mean, float standardDeviation)
+    // Selects a random runway from the available ones.
+    public Transform GetRandomRunWay()
     {
-        float randomValue = GenerateRandomValue(mean, standardDeviation);
-
-        Transform[] runWays = new Transform[3] { transform.GetChild(3), transform.GetChild(5), transform.GetChild(4) }; // 左、中、右
-
-        if (randomValue < mean - standardDeviation)
-        {
-            return runWays[0]; // Left runWay.
-        }
-        else if (randomValue > mean + standardDeviation)
-        {
-            return runWays[2]; // Right runWay.
-        }
-        else
-        {
-            return runWays[1]; // Center runWay.
-        }
+        // transform.GetChild(3) represents the left runway, transform.GetChild(4) represents the middle runway, transform.GetChild(5) represents the right runway
+        Transform[] runways = new Transform[] { transform.GetChild(3), transform.GetChild(4), transform.GetChild(5) };
+        // Return a randomly selected runway.
+        return runways[Random.Range(0, runways.Length)];
     }
 
 
-
-    // Get a random object type (coin, obstacle, potion, or magnet). 5.5f 2.0f
-    public Transform GetRandomObjectType(float mean, float standardDeviation)
+    // Use Weighted Random Sampling.
+     // Selects a random object type with weighted probabilities.
+    public Transform GetRandomObjectType()
     {
-
-        float randomValue = GenerateRandomValue(mean, standardDeviation);
-
-        if (randomValue < mean - standardDeviation)
-            return _coin; // Coin prefab.
-        
-        if (randomValue < mean + standardDeviation)
-            return _obstacle; // Obstacle prefab;
-        
-        if (randomValue < mean + 1.5f * standardDeviation)
-            return _magnet; // Magnet prefab;
-
-        return _potion; // Potion prefab.
-    }
-
-    public float GenerateRandomValue(float mean, float standardDeviation)
-    {
-        return Random.Range(mean - 3 * standardDeviation, mean + 3 * standardDeviation);
+        // Define weights for each object type.
+        float totalWeight = 6f + 3f + 0.5f + 0.5f;
+        float randomValue = Random.Range(0, totalWeight);
+        // Determine the object type based on the generated random value.
+        if (randomValue < 6) return _coin; // Coin has the highest probability.
+        else if (randomValue < 9) return _obstacle; // Obstacle has the second-highest probability.
+        else if (randomValue < 9.5) return _magnet; // Magnet has lower probability.
+        else return _potion; // Potion has the same probability as the magnet.
     }
 
 

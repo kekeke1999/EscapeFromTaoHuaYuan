@@ -1,20 +1,31 @@
 ScriptsOnlyBuild:
   usedScripts:
-    Assembly-CSharp.dll:
-    - Coin
+    NewAssembly.dll:
     - FactoryManager
     - GameEnd
     - PlayerLogic
     - PlayerState
     - StartLogic
-    - TerrainControler
+    - TerrainController
     - UIMain
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    - Packages.Rider.Editor.UnitTesting.SyncTestRunEventsHandler
     UnityEditor.TestRunner.dll:
+    - TestRunner.Callbacks.WindowResultUpdaterDataHolder
+    - UnityEditor.TestRunner.TestLaunchers.RemotePlayerLogController
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
+    - UnityEditor.TestTools.TestRunner.CommandLineTest.RunData
+    - UnityEditor.TestTools.TestRunner.RerunCallbackData
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    - UnityEditor.TestTools.TestRunner.TestRunnerWindow
+    UnityEngine.TestRunner.dll:
+    - UnityEngine.TestRunner.Utils.TestRunCallbackListener
+    - UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
+    - UnityEngine.TestTools.TestRunner.Callbacks.PlayerQuitHandler
+    - UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
+    - UnityEngine.TestTools.TestRunner.PlaymodeTestsController
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -28,8 +39,17 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.VerticalLayoutGroup
   serializedClasses:
     UnityEngine.CoreModule:
+    - UnityEngine.Events.ArgumentCache
     - UnityEngine.Events.PersistentCallGroup
+    - UnityEngine.Events.PersistentListenerMode
     - UnityEngine.RectOffset
+    UnityEngine.TestRunner:
+    - UnityEngine.TestTools.TestRunner.GUI.RuntimeTestRunnerFilter
+    - UnityEngine.TestTools.TestRunner.PlaymodeTestsControllerSettings
+    - UnityEngine.TestTools.TestRunner.RunFinishedEvent
+    - UnityEngine.TestTools.TestRunner.RunStartedEvent
+    - UnityEngine.TestTools.TestRunner.TestFinishedEvent
+    - UnityEngine.TestTools.TestRunner.TestStartedEvent
     UnityEngine.UI:
     - UnityEngine.UI.AnimationTriggers
     - UnityEngine.UI.Button/ButtonClickedEvent
@@ -38,8 +58,87 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
     - UnityEngine.UI.Navigation
     - UnityEngine.UI.SpriteState
-  methodsToPreserve: []
+  methodsToPreserve:
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
+    methodName: TestStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
+    methodName: TestStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayerQuitHandler
+    methodName: TestStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestRunner.Utils.TestRunCallbackListener
+    methodName: TestStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
+    methodName: TestFinished
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
+    methodName: TestFinished
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayerQuitHandler
+    methodName: TestFinished
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestRunner.Utils.TestRunCallbackListener
+    methodName: TestFinished
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
+    methodName: RunStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
+    methodName: RunStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayerQuitHandler
+    methodName: RunStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestRunner.Utils.TestRunCallbackListener
+    methodName: RunStarted
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
+    methodName: RunFinished
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
+    methodName: RunFinished
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestTools.TestRunner.Callbacks.PlayerQuitHandler
+    methodName: RunFinished
+  - assembly: UnityEngine.TestRunner
+    fullTypeName: UnityEngine.TestRunner.Utils.TestRunCallbackListener
+    methodName: RunFinished
   sceneClasses:
+    Assets/InitTestScene638325660307179100.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1840}
+    - Class: 114
+      Script: {instanceID: 2040}
+    - Class: 114
+      Script: {instanceID: 2250}
+    - Class: 114
+      Script: {instanceID: 2540}
+    - Class: 114
+      Script: {instanceID: 3474}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
     Assets/Scenes/MainScene.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -88,35 +187,33 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1618}
     - Class: 114
-      Script: {instanceID: 1804}
+      Script: {instanceID: 1808}
     - Class: 114
-      Script: {instanceID: 1834}
+      Script: {instanceID: 1836}
     - Class: 114
-      Script: {instanceID: 2396}
+      Script: {instanceID: 2398}
     - Class: 114
-      Script: {instanceID: 2462}
+      Script: {instanceID: 2464}
     - Class: 114
-      Script: {instanceID: 2746}
+      Script: {instanceID: 2466}
     - Class: 114
-      Script: {instanceID: 2772}
+      Script: {instanceID: 2750}
     - Class: 114
-      Script: {instanceID: 2802}
+      Script: {instanceID: 2776}
     - Class: 114
-      Script: {instanceID: 2918}
+      Script: {instanceID: 2806}
     - Class: 114
-      Script: {instanceID: 2982}
+      Script: {instanceID: 2986}
     - Class: 114
-      Script: {instanceID: 3188}
+      Script: {instanceID: 3192}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3492}
     - Class: 114
-      Script: {instanceID: 3490}
-    - Class: 114
-      Script: {instanceID: 3840}
+      Script: {instanceID: 3842}
     - Class: 114
       Script: {instanceID: 4006}
     - Class: 114
-      Script: {instanceID: 19964}
+      Script: {instanceID: 19784}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -146,8 +243,6 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
-      Script: {instanceID: 0}
-    - Class: 850595691
       Script: {instanceID: 0}
     - Class: 1953259897
       Script: {instanceID: 0}
@@ -181,17 +276,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1608}
     - Class: 114
-      Script: {instanceID: 1804}
+      Script: {instanceID: 1808}
     - Class: 114
-      Script: {instanceID: 2462}
+      Script: {instanceID: 2466}
     - Class: 114
-      Script: {instanceID: 2982}
+      Script: {instanceID: 2986}
     - Class: 114
-      Script: {instanceID: 3188}
+      Script: {instanceID: 3192}
     - Class: 114
-      Script: {instanceID: 3490}
+      Script: {instanceID: 3492}
     - Class: 114
-      Script: {instanceID: 3840}
+      Script: {instanceID: 3842}
     - Class: 114
       Script: {instanceID: 4006}
     - Class: 115
@@ -234,7 +329,7 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 2364f83f4f2a82d72b82b0424db10afc
-    assemblyName: Assembly-CSharp.dll
+    assemblyName: NewAssembly.dll
     namespaceName: 
     className: StartLogic
   - hash:
@@ -245,8 +340,8 @@ ScriptsOnlyBuild:
     className: ContentSizeFitter
   - hash:
       serializedVersion: 2
-      Hash: 98642d5155120910898f84514b8950b7
-    assemblyName: Assembly-CSharp.dll
+      Hash: d814732a388b73f74c9ec5d1d169a218
+    assemblyName: NewAssembly.dll
     namespaceName: 
     className: FactoryManager
   - hash:
@@ -408,7 +503,7 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: c4e17c1f6352497cc7f8ce6fe59ea046
-    assemblyName: Assembly-CSharp.dll
+    assemblyName: NewAssembly.dll
     namespaceName: 
     className: PlayerLogic
   - hash:
@@ -417,6 +512,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_StyleSheet
+  - hash:
+      serializedVersion: 2
+      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+    assemblyName: NewAssembly.dll
+    namespaceName: 
+    className: TerrainController
   - hash:
       serializedVersion: 2
       Hash: 699619b86d9359741a4f58540298c80b
@@ -450,19 +551,19 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
+    assemblyName: NewAssembly.dll
     namespaceName: 
     className: PlayerState
   - hash:
       serializedVersion: 2
       Hash: cf8e7c932b6fd82a01d8064761d4cd2a
-    assemblyName: Assembly-CSharp.dll
+    assemblyName: NewAssembly.dll
     namespaceName: 
     className: GameEnd
   - hash:
       serializedVersion: 2
-      Hash: 4fb58740ef788c03cc279af6e5eed2c9
-    assemblyName: Assembly-CSharp.dll
+      Hash: 2ed7afcf88eadf01fe9dd0c4ff7b3a97
+    assemblyName: NewAssembly.dll
     namespaceName: 
     className: UIMain
   - hash:
@@ -492,7 +593,7 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
+    assemblyName: NewAssembly.dll
     namespaceName: 
     className: Coin
   - hash:
@@ -569,12 +670,6 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TerrainControler
-  - hash:
-      serializedVersion: 2
       Hash: 75de60bccbd35c2e82026d4a60733734
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -635,12 +730,6 @@ ScriptsOnlyBuild:
     className: Scrollbar
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Magnetite
-  - hash:
-      serializedVersion: 2
       Hash: 5dea360fb0b147724ac344e6f399c2f3
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -671,6 +760,12 @@ ScriptsOnlyBuild:
     className: ActivationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: NewAssembly.dll
+    namespaceName: 
+    className: Magnet
+  - hash:
+      serializedVersion: 2
       Hash: 69415240821be7986b27e72bf9609a30
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -689,16 +784,16 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: NewAssembly.dll
+    namespaceName: 
+    className: MusicManaged
+  - hash:
+      serializedVersion: 2
       Hash: 0fd6822f6177297bd0eb4d83cc7a9030
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ToggleGroup
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MusicManaged
   - hash:
       serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
@@ -707,6 +802,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   platform: 2
   scenePathNames:
+  - Assets/InitTestScene638325660307179100.unity
   - Assets/Scenes/MainScene.unity
   - Assets/Scenes/StartScene.unity
-  playerPath: /Users/renke/Downloads/parkour/123.app
+  playerPath: /Users/renke/Downloads/parkour/Temp/UnityTempFile-a83f60b5d0e214e6786bcd03fd4363a7/PlayerWithTests/PlayerWithTests.app
