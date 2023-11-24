@@ -25,6 +25,7 @@ public class PlayerStateTests
         Object.DestroyImmediate(_gameObject);
     }
 
+     // Test method marked with UnityTest attribute to test the process of player moving to the left lane.
     [UnityTest]
     public IEnumerator TransitionToLeftLane()
     {
@@ -37,6 +38,7 @@ public class PlayerStateTests
         Assert.IsFalse(_playerState.getIsTransitioning());
     }
 
+    // Test method to verify the behavior of setting Animator flags during a jump action.
     [UnityTest]
     public IEnumerator JumpSetsIsJumpAnimatorFlag()
     {
@@ -44,7 +46,7 @@ public class PlayerStateTests
         Assert.IsFalse(_animator.GetBool("IsJump"));
     }
 
-
+    // Test method to test the process of player moving to the right lane.
     [UnityTest]
     public IEnumerator TransitionToRightLane()
     {
