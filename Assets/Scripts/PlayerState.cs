@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// This code is designed to control the player's movements, including animations and positional transitions.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -39,6 +40,9 @@ public class PlayerState : MonoBehaviour
         animator = GetComponent<Animator>(); // Get the Animator component attached to this GameObject.
     }
 
+
+    // Rule: Player's movement consists of three actions: jumping up, moving left and moving right. 
+    // Update(): detects the player's keyboard inputs (W, A, D keys) and triggers corresponding actions based on these inputs.
     public void Update()
     {
         // Check for the "W" key press to trigger a jump animation.
@@ -63,6 +67,9 @@ public class PlayerState : MonoBehaviour
         }
     }
 
+
+    // Jump(): Triggers the jump animation.
+    // Once the animation is complete, a callback function is called to reset the animation parameters. 
     public IEnumerator Jump(UnityAction callBack)
     {
         animator.SetBool("IsJump", true); // Trigger the jump animation.
@@ -70,7 +77,10 @@ public class PlayerState : MonoBehaviour
         callBack.Invoke(); // Invoke the callback function after the animation completes.
     }
 
-    // Smooth lane transition.
+    // TransitionToLane(): smoothly moves the player to a specified lane (position).
+    // Method: Calculates the target position and direction vector.
+    // Gradually moves the player to the target position using the transform.Translate method.
+    // Resets the isTransitioning flag after the movement is complete.
     public IEnumerator TransitionToLane(Vector3 offsetx)
     {
         isTransitioning = true; // Set the transitioning flag to true.

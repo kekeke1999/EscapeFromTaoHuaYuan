@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// As a parkour game, the terrain needs to continuously loop to create an infinitely long path.
+// Basic Logic:
+// By checking the position in Update(), the script ensures that the terrain does not move backward indefinitely, but loops back after reaching a certain distance.
+// LateUpdate() is used to achieve continuous and smooth movement of the terrain, as it executes after all Update methods are called, ensuring all game logic and position updates have been completed.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
